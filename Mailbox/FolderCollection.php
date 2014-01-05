@@ -1,14 +1,14 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Entity;
+namespace Digitalshift\MailboxClientBundle\Mailbox;
 
 /**
- * ClientMessageHeader
+ * MailboxFolderCollection
  *
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
  */
-class ClientMessageHeaders
+class FolderCollection
 {
 
 } 

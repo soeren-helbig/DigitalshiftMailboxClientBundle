@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Entity;
+namespace Digitalshift\MailboxClientBundle\Mailbox;
 
 /**
  * MailboxFolder
@@ -8,7 +8,7 @@ namespace Digitalshift\MailboxClientBundle\Entity;
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
  */
-class MailboxFolder
+class Folder
 {
     /**
      * @var string

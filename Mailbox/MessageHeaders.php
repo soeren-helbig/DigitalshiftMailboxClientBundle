@@ -1,14 +1,14 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Entity;
+namespace Digitalshift\MailboxClientBundle\Mailbox;
 
 /**
- * ClientMessageMimeParts
+ * ClientMessageHeader
  *
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
  */
-class ClientMessageMimeParts
+class MessageHeaders
 {
 
 } 
