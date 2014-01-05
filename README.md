@@ -8,7 +8,7 @@
 * IMAP (ImapConnector)
 * POP3 (Pop3Connector) - not yet implemented
 
-### Abstraction-Types
+### Abstraction-Layer
 
 #### Mailbox / Folder
 
