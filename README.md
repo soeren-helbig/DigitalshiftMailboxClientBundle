@@ -1,4 +1,11 @@
-DigitalshiftMailboxClientBundle - Encapsulate IMAP/POP3 connections
+DigitalshiftMailboxClientBundle
+============================
 
-* encapsulates IMAP/PO3 connections
+* encapsulates IMAP/POP3 connections
 * provides MailboxAbstractionLayer
+
+
+## Abstraction-Types
+
+* Mailbox / Folder: …
+* Mailbox / Message: …
