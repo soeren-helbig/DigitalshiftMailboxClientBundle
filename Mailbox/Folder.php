@@ -11,32 +11,46 @@ namespace Digitalshift\MailboxClientBundle\Mailbox;
 class Folder
 {
     /**
+     * name of folder in mailbox
+     *
      * @var string
      */
     private $name;
 
     /**
+     * path to folder in mailbox
+     *
      * @var string
      */
     private $path;
 
     /**
-     * @var MailboxFolderCollection
+     * contained sub-folders
+     *
+     * @var FolderCollection
      */
     private $folders;
 
     /**
-     * @var MailboxMessageCollection
+     * contained messages
+     *
+     * @var MessageCollection
      */
     private $messages;
 
     /**
+     * flag to show if folder is already synchronized with mailbox.
+     * when receiving folders without the recursive flag, sub-folders
+     * are created as empty ones (no messages & sub-folders will be be
+     * contained). this is made to prevent performance issues on large
+     * mailboxes with deep directory-structure.
+     *
      * @var boolean
      */
     private $synchronized;
 
     /**
-     * @param \Digitalshift\MailboxClientBundle\Entity\MailboxFolderCollection $folders
+     * @param \Digitalshift\MailboxClientBundle\Mailbox\FolderCollection $folders
      */
     public function setFolders($folders)
     {
@@ -44,7 +58,7 @@ class Folder
     }
 
     /**
-     * @return \Digitalshift\MailboxClientBundle\Entity\MailboxFolderCollection
+     * @return \Digitalshift\MailboxClientBundle\Mailbox\FolderCollection
      */
     public function getFolders()
     {
@@ -52,7 +66,7 @@ class Folder
     }
 
     /**
-     * @param \Digitalshift\MailboxClientBundle\Entity\MailboxMessageCollection $messages
+     * @param \Digitalshift\MailboxClientBundle\Mailbox\MessageCollection $messages
      */
     public function setMessages($messages)
     {
@@ -60,7 +74,7 @@ class Folder
     }
 
     /**
-     * @return \Digitalshift\MailboxClientBundle\Entity\MailboxMessageCollection
+     * @return \Digitalshift\MailboxClientBundle\Mailbox\MessageCollection
      */
     public function getMessages()
     {
@@ -115,5 +129,4 @@ class Folder
         return $this->synchronized;
     }
 
-
-} 
+}

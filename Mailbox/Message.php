@@ -11,21 +11,29 @@ namespace Digitalshift\MailboxClientBundle\Mailbox;
 class Message
 {
     /**
+     * message id in mailbox
+     *
      * @var string
      */
     private $messageId;
 
     /**
+     * parent folder
+     *
      * @var Folder
      */
     private $mailboxFolder;
 
     /**
+     * mail headers
+     *
      * @var MessageHeaders
      */
     private $header;
 
     /**
+     * mail mime-parts
+     *
      * @var MessageMimeParts
      */
     private $content;
