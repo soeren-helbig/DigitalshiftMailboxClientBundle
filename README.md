@@ -12,7 +12,7 @@
 
 #### Mailbox / Folder
 
-[Abstraction](Mailbox/Folder.php) for a mailbox folder.
+[Abstraction](Mailbox/Folder.php) for a mailbox folder, provides information like @name, @(imap-)path, @subfolders, @messages, ...
 
 #### Mailbox / Message
 
