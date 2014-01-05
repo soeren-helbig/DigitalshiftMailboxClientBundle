@@ -42,7 +42,7 @@ class Folder
      * flag to show if folder is already synchronized with mailbox.
      * when receiving folders without the recursive flag, sub-folders
      * are created as empty ones (no messages & sub-folders will be
-     * contained). this is made to prevent performance issues on large
+     * contained). this is done to prevent performance issues on large
      * mailboxes with deep directory-structure.
      *
      * @var boolean
