@@ -10,5 +10,10 @@
 
 ### Abstraction-Types
 
-* Mailbox / Folder: …
-* Mailbox / Message: …
+#### Mailbox / Folder
+
+[Abstraction](Mailbox/Folder.php) for a mailbox folder.
+
+#### Mailbox / Message
+
+[Abstraction](Mailbox/Message.php) for a mailbox folder.
