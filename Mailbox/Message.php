@@ -3,7 +3,7 @@
 namespace Digitalshift\MailboxClientBundle\Mailbox;
 
 /**
- * MailboxMessage
+ * Message
  *
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
