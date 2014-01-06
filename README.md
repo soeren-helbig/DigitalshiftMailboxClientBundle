@@ -2,6 +2,7 @@
 
 * encapsulates IMAP/POP3/… connections
 * provides MailboxAbstractionLayer
+* depends on [PECL/mailparse Library](http://pecl.php.net/package/mailparse)
 
 ### Supported Mailbox Connections / Protocols
 
