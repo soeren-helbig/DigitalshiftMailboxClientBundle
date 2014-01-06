@@ -128,15 +128,24 @@ class MessageMimeParts
     }
 
     /**
-     * @param mixed $subparts
+     * @param string $key
+     * @param MessageMimeParts $subpart
      */
-    public function setSubparts($subparts)
+    public function addSubpart($key, MessageMimeParts $subpart)
+    {
+        $this->subparts[$key] = $subpart;
+    }
+
+    /**
+     * @param array $subparts
+     */
+    public function setSubparts(array $subparts)
     {
         $this->subparts = $subparts;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getSubparts()
     {

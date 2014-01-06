@@ -16,33 +16,47 @@ abstract class BaseMailboxConnector
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      */
-    private $url;
+    protected $url;
+
+    /**
+     * @var integer
+     */
+    protected $port;
+
+    /**
+     * @var array
+     */
+    protected $flags;
 
     /**
      * @var mixed
      */
-    private $connection;
+    protected $connection;
 
     /**
      * @param string $username
      * @param string $password
      * @param string $url
+     * @param integer port
+     * @param array $flags
      */
-    public function __construct($username, $password, $url)
+    public function initialize($username, $password, $url, $port = 0, array $flags = array())
     {
         $this->username = $username;
         $this->password = $password;
         $this->url = $url;
+        $this->port = $port;
+        $this->flags = $flags;
     }
 
     /**
@@ -107,5 +121,37 @@ abstract class BaseMailboxConnector
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @param string $flags
+     */
+    public function setFlags($flags)
+    {
+        $this->flags = $flags;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlags()
+    {
+        return $this->flags;
+    }
+
+    /**
+     * @param int $port
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 } 

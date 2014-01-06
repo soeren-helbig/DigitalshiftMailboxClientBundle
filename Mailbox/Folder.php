@@ -66,6 +66,14 @@ class Folder
     }
 
     /**
+     * @param Folder $subFolder
+     */
+    public function addSubFolder(Folder $subFolder)
+    {
+        $this->folders->add($subFolder);
+    }
+
+    /**
      * @param \Digitalshift\MailboxClientBundle\Mailbox\MessageCollection $messages
      */
     public function setMessages($messages)
@@ -79,6 +87,14 @@ class Folder
     public function getMessages()
     {
         return $this->messages;
+    }
+
+    /**
+     * @param Message $message
+     */
+    public function addMessage(Message $message)
+    {
+        $this->messages->add($message);
     }
 
     /**

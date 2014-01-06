@@ -12,15 +12,24 @@ use Digitalshift\MailboxClientBundle\Mailbox\Message;
 class MessageFactory
 {
     /**
+     * @var MessageHeaderFactory
+     */
+    private $messageHeaderFactory;
+
+    /**
      * @var MessageMimePartFactory
      */
     private $messageMimePartsFactory;
 
     /**
+     * @param $messageHeaderFactory $messageHeaderFactory
      * @param MessageMimePartFactory $messageMimePartFactory
      */
-    public function __construct(MessageMimePartFactory $messageMimePartFactory)
-    {
+    public function __construct(
+        MessageHeaderFactory $messageHeaderFactory,
+        MessageMimePartFactory $messageMimePartFactory
+    ) {
+        $this->messageHeaderFactory = $messageHeaderFactory;
         $this->messageMimePartsFactory = $messageMimePartFactory;
     }
 
@@ -28,20 +37,17 @@ class MessageFactory
      * creates Message instance of raw mail string.
      *
      * @param $message
+     * @param string $messageId
+     * @param string $folder
      * @return Message
      */
-    public function byRawMessage($message)
+    public function byRawMessage($message, $messageId = null, $folder = null)
     {
-        return new Message();
-    }
-
-    /**
-     * @param $content
-     * @param array $headers
-     * @return Message
-     */
-    public function byRawContentAndHeader($content, array $headers)
-    {
-        return new Message();
+        return new Message(
+            $this->messageHeaderFactory->byRawContent($message),
+            $this->messageMimePartsFactory->byRawContent($message),
+            $messageId,
+            $folder
+        );
     }
 }

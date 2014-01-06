@@ -14,16 +14,16 @@ use Digitalshift\MailboxClientBundle\Entity\MailboxMessage;
 interface MailboxConnectorInterface
 {
     /**
-     * @param string $name
+     * @param string $path
      * @param bool $recursive
      * @return MailboxFolder
      */
-    public function getFolder($name = null, $recursive = false);
+    public function getFolder($path = null, $recursive = false);
 
     /**
      * @param string $messageId
-     * @param string $folder
+     * @param string $path
      * @return MailboxMessage
      */
-    public function getMessage($messageId, $folder = null);
+    public function getMessage($messageId, $path = null);
 } 
