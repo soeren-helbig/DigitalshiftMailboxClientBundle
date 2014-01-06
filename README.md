@@ -2,6 +2,7 @@
 
 * encapsulates IMAP/POP3/… connections
 * provides MailboxAbstractionLayer
+* depends on [PECL/mailparse Library](http://pecl.php.net/package/mailparse)
 
 ### Supported Mailbox Connections / Protocols
 
@@ -18,4 +19,4 @@
 #### Mailbox / Message
 
 * access to mails, including raw content (mime-parts) & headers on the one hand and theirs abstract content (html-content, plain-content, attachements)
-* see [Mailbox/Folder.php](Mailbox/Message.php) for complete fieldlist
+* see [Mailbox/Message.php](Mailbox/Message.php) for complete fieldlist
