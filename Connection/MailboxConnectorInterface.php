@@ -14,6 +14,11 @@ use Digitalshift\MailboxClientBundle\Entity\MailboxMessage;
 interface MailboxConnectorInterface
 {
     /**
+     * @return void
+     */
+    public function disconnect();
+
+    /**
      * @param string $path
      * @param bool $recursive
      * @return MailboxFolder
@@ -26,4 +31,9 @@ interface MailboxConnectorInterface
      * @return MailboxMessage
      */
     public function getMessage($messageId, $path = null);
+
+    /**
+     * @return integer
+     */
+    public function getType();
 } 

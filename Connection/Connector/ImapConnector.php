@@ -7,6 +7,7 @@ use Digitalshift\MailboxClientBundle\Connection\MailboxConnectorInterface;
 use Digitalshift\MailboxClientBundle\Exception\ImapConnectionException;
 use Digitalshift\MailboxClientBundle\Factory\FolderFactory;
 use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
+use MyProject\Proxies\__CG__\stdClass;
 
 /**
  * ImapConnector
@@ -40,11 +41,21 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     }
 
     /**
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->connection) {
+            imap_close($this->connection);
+        }
+    }
+
+    /**
      * @{inheritdoc}
      */
     public function getFolder($path = null, $recursive = false)
     {
-        if ($this->connection) {
+        if (!$this->connection) {
             $this->connect();
         }
 
@@ -108,7 +119,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function setWorkingFolder($path)
     {
-        imap_reopen($this->connection, $path);
+        if ($path) {
+            imap_reopen($this->connection, $path);
+        }
     }
 
     /**
@@ -128,8 +141,13 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         $messages = array();
 
         foreach ($messageHeaders as $messageHeader) {
-            $messages[] = $this->getMessageBody($messageHeader['msgno']);
+            $message = new \stdClass();
+            $message->header = $this->getMessageHeader($messageHeader->msgno);
+            $message->body = $this->getMessageBody($messageHeader->msgno);
+            $messages[] = $message;
         }
+
+        return $messages;
     }
 
     /**
@@ -139,16 +157,21 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     {
         $mailboxInfo = imap_check($this->connection);
 
-        if ($this->getMailCount($mailboxInfo) == 0) {
-            return false;
-        }
-
         /* get overview of all messages in connected mailbox and return it */
         return imap_fetch_overview(
             $this->connection,
             '1:' . $mailboxInfo->Nmsgs,
             0
         );
+    }
+
+    /**
+     * @param integer $messageNumber
+     * @return array
+     */
+    private function getMessageHeader($messageNumber)
+    {
+        return imap_fetchheader($this->connection, $messageNumber);
     }
 
     /**
@@ -168,7 +191,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     public function getMessage($messageId, $path = null)
     {
-        if ($this->connection) {
+        if (!$this->connection) {
             $this->connect();
         }
 
@@ -178,5 +201,14 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
 
         return $this->messageFactory->byRawMessage($this->getMessageBody($messageId));
     }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function getType()
+    {
+        return BaseMailboxConnector::TYPE_IMAP;
+    }
+
 
 } 

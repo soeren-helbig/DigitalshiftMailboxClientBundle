@@ -1,7 +1,32 @@
 parameters:
-#    digitalshift_mailbox_client.example.class: Digitalshift\MailboxClientBundle\Example
+    digitalshift_mailbox_client.connector.class: Digitalshift\MailboxClientBundle\Connection\Connector\ImapConnector
+    digitalshift_mailbox_client.factory.folder.class: Digitalshift\MailboxClientBundle\Factory\FolderFactory
+    digitalshift_mailbox_client.factory.message.class: Digitalshift\MailboxClientBundle\Factory\MessageFactory
+    digitalshift_mailbox_client.factory.message_header.class: Digitalshift\MailboxClientBundle\Factory\MessageHeaderFactory
+    digitalshift_mailbox_client.factory.message_mime_parts.class: Digitalshift\MailboxClientBundle\Factory\MessageMimePartFactory
 
 services:
-#    digitalshift_mailbox_client.example:
-#        class: %digitalshift_mailbox_client.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    digitalshift_mailbox_client.connector:
+        class: %digitalshift_mailbox_client.connector.class%
+        arguments:
+            - @digitalshift_mailbox_client.factory.message
+            - @digitalshift_mailbox_client.factory.folder
+
+    digitalshift_mailbox_client.factory.folder:
+        class: %digitalshift_mailbox_client.factory.folder.class%
+        arguments:
+            - @digitalshift_mailbox_client.factory.message
+
+    digitalshift_mailbox_client.factory.message:
+        class: %digitalshift_mailbox_client.factory.message.class%
+        arguments:
+            - @digitalshift_mailbox_client.factory.message_header
+            - @digitalshift_mailbox_client.factory.message_mime_parts
+
+    digitalshift_mailbox_client.factory.message_header:
+        class: %digitalshift_mailbox_client.factory.message_header.class%
+
+    digitalshift_mailbox_client.factory.message_mime_parts:
+        class: %digitalshift_mailbox_client.factory.message_mime_parts.class%
+        arguments:
+            - @digitalshift_mailbox_client.factory.message_header

@@ -49,6 +49,12 @@ class Folder
      */
     private $synchronized;
 
+    public function __construct()
+    {
+        $this->folders = new FolderCollection();
+        $this->messages = new MessageCollection();
+    }
+
     /**
      * @param \Digitalshift\MailboxClientBundle\Mailbox\FolderCollection $folders
      */

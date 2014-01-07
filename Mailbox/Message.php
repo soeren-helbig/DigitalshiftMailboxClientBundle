@@ -40,13 +40,13 @@ class Message
 
     /**
      * @param MessageHeaders $header
-     * @param MessageMimeParts $content
+     * @param MessageMimePartCollection $content
      * @param string $messageId
      * @param Folder $mailboxFolder
      */
     public function __construct(
         MessageHeaders $header,
-        MessageMimeParts $content,
+        MessageMimePartCollection $content,
         $messageId = null,
         Folder $mailboxFolder = null
     ) {

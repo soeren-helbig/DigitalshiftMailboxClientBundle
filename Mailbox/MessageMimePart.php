@@ -11,19 +11,16 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
  */
-class MessageMimeParts
+class MessageMimePart
 {
     private $headers;
 
     private $content;
 
-    private $subparts;
-
-    public function __construct(array $headers, $content = null, array $subparts = array())
+    public function __construct(array $headers, $content = null)
     {
         $this->headers = $headers;
         $this->content = $content;
-        $this->subparts = $subparts;
     }
 
     /**
@@ -125,38 +122,5 @@ class MessageMimeParts
         }
 
         $this->headers[$key] = $value;
-    }
-
-    /**
-     * @param string $key
-     * @param MessageMimeParts $subpart
-     */
-    public function addSubpart($key, MessageMimeParts $subpart)
-    {
-        $this->subparts[$key] = $subpart;
-    }
-
-    /**
-     * @param array $subparts
-     */
-    public function setSubparts(array $subparts)
-    {
-        $this->subparts = $subparts;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSubparts()
-    {
-        return $this->subparts;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasSubparts()
-    {
-        return (count($this->subparts) > 0) ? true : false;
     }
 } 

@@ -36,18 +36,16 @@ class MessageFactory
     /**
      * creates Message instance of raw mail string.
      *
-     * @param $message
+     * @param \stdClass $message
      * @param string $messageId
      * @param string $folder
      * @return Message
      */
     public function byRawMessage($message, $messageId = null, $folder = null)
     {
-        return new Message(
-            $this->messageHeaderFactory->byRawContent($message),
-            $this->messageMimePartsFactory->byRawContent($message),
-            $messageId,
-            $folder
-        );
+        $mimeParts = $this->messageMimePartsFactory->byRawContent($message->body);
+        $header = $this->messageHeaderFactory->byRawContent($message->header);
+
+        return new Message($header, $mimeParts, $messageId, $folder);
     }
 }

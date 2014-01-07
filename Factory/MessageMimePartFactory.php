@@ -2,7 +2,8 @@
 
 namespace Digitalshift\MailboxClientBundle\Factory;
 
-use Digitalshift\MailboxClientBundle\Mailbox\MessageMimeParts;
+use Digitalshift\MailboxClientBundle\Mailbox\MessageMimePart;
+use Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection;
 
 /**
  * MessageMimePartFactory
@@ -31,7 +32,7 @@ class MessageMimePartFactory
      * @todo: finalize/refactor method
      *
      * @param $content
-     * @return MessageMimeParts
+     * @return MessageMimePartCollection
      */
     public function byRawContent($content)
     {
@@ -41,8 +42,7 @@ class MessageMimePartFactory
         return $this->getMimePartsForKeys(
             $mailparseResource,
             $mimePartKeys,
-            $content,
-            new MessageMimeParts(array())
+            $content
         );
     }
 
@@ -52,7 +52,7 @@ class MessageMimePartFactory
      */
     private function initializeMailparse($content)
     {
-        $mailparseResource = \mailparse_msg_create();
+        $mailparseResource = mailparse_msg_create();
         mailparse_msg_parse($mailparseResource, $content);
 
         return $mailparseResource;
@@ -78,11 +78,22 @@ class MessageMimePartFactory
         $partResource    = mailparse_msg_get_part($resource, $key);
         $mailparseHeaders = mailparse_msg_get_part_data($partResource);
 
-        return $this->getContentSubstr(
+        $header = $this->getContentSubstr(
             $content,
-            $mailparseHeaders['starting-pos-head'],
-            $mailparseHeaders['ending-pos-head']
+            $mailparseHeaders['starting-pos'],
+            $mailparseHeaders['starting-pos-body']
         );
+
+        return $this->convertHeaderStringToArray($header);
+    }
+
+    /**
+     * @param string $header
+     * @return array
+     */
+    private function convertHeaderStringToArray($header)
+    {
+        return explode(';', $header);
     }
 
     /**
@@ -109,24 +120,44 @@ class MessageMimePartFactory
      * @param resource $resource
      * @param array $keys
      * @param string $content
-     * @param MessageMimeParts $parentPart
-     * @return MessageMimeParts
+     * @return MessageMimePartCollection
      */
-    private function getMimePartsForKeys($resource, $keys, $content, MessageMimeParts $parentPart)
+    private function getMimePartsForKeys($resource, $keys, $content)
     {
+        $collection = new MessageMimePartCollection();
+
         foreach ($keys as $mimePartKey) {
-            $mimePartContent = $this->getMimePartBodyForKey($resource, $mimePartKey, $content);
-            $parentPart->addSubpart($mimePartKey, new MessageMimeParts(array(), $mimePartContent));
+            $collection->offsetSet(
+                $mimePartKey,
+                $this->getMimePartForKey($resource, $mimePartKey, $content)
+            );
         }
+
+        return $collection;
     }
 
     /**
+     * @param resource $resource
+     * @param string $key
+     * @param string $content
+     * @return MessageMimePart
+     */
+    private function getMimePartForKey($resource, $key, $content)
+    {
+        $headers = $this->getMimePartHeaderForKey($resource, $key, $content);
+        $content = $this->getMimePartBodyForKey($resource, $key, $content);
+
+        return new MessageMimePart($headers, $content);
+    }
+
+    /**
+     * @param string $content
      * @param integer $start
      * @param integer $end
      * @return string
      */
-    private function getContentSubstr($start, $end)
+    private function getContentSubstr($content, $start, $end)
     {
-        return substr($this->rawContent, $start, $end-$start);
+        return substr($content, $start, $end-$start);
     }
 } 
