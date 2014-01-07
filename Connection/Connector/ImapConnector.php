@@ -141,13 +141,23 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         $messages = array();
 
         foreach ($messageHeaders as $messageHeader) {
-            $message = new \stdClass();
-            $message->header = $this->getMessageHeader($messageHeader->msgno);
-            $message->body = $this->getMessageBody($messageHeader->msgno);
-            $messages[] = $message;
+            $messages[] = $this->retrieveMessage($messageHeader->msgno);
         }
 
         return $messages;
+    }
+
+    /**
+     * @param integer $messageNumber
+     * @return \stdClass
+     */
+    private function retrieveMessage($messageNumber)
+    {
+        $message = new \stdClass();
+        $message->header = $this->getMessageHeader($messageNumber);
+        $message->body = $this->getMessageBody($messageNumber);
+
+        return $message;
     }
 
     /**
@@ -189,7 +199,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     /**
      * @{inheritdoc}
      */
-    public function getMessage($messageId, $path = null)
+    public function getMessage($messageNumber, $path = null)
     {
         if (!$this->connection) {
             $this->connect();
@@ -199,7 +209,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
             $this->setWorkingFolder($path);
         }
 
-        return $this->messageFactory->byRawMessage($this->getMessageBody($messageId));
+        return $this->messageFactory->byRawMessage(
+            $this->retrieveMessage($messageNumber)
+        );
     }
 
     /**

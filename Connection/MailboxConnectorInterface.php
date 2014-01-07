@@ -26,11 +26,11 @@ interface MailboxConnectorInterface
     public function getFolder($path = null, $recursive = false);
 
     /**
-     * @param string $messageId
+     * @param string $messageNumber
      * @param string $path
      * @return MailboxMessage
      */
-    public function getMessage($messageId, $path = null);
+    public function getMessage($messageNumber, $path = null);
 
     /**
      * @return integer

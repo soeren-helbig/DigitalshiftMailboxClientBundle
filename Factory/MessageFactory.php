@@ -43,7 +43,7 @@ class MessageFactory
      */
     public function byRawMessage($message, $messageId = null, $folder = null)
     {
-        $mimeParts = $this->messageMimePartsFactory->byRawContent($message->body);
+        $mimeParts = $this->messageMimePartsFactory->byRawContent($message->header.$message->body);
         $header = $this->messageHeaderFactory->byRawContent($message->header);
 
         return new Message($header, $mimeParts, $messageId, $folder);
