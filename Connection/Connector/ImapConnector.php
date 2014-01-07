@@ -7,7 +7,6 @@ use Digitalshift\MailboxClientBundle\Connection\MailboxConnectorInterface;
 use Digitalshift\MailboxClientBundle\Exception\ImapConnectionException;
 use Digitalshift\MailboxClientBundle\Factory\FolderFactory;
 use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
-use MyProject\Proxies\__CG__\stdClass;
 
 /**
  * ImapConnector
@@ -129,7 +128,24 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getSubfolders()
     {
-        return imap_list($this->connection, $this->buildConnectionString(), '%');
+        $folderRawNames = imap_list($this->connection, $this->buildConnectionString(), '%');
+
+        return $this->stripFolderNames($folderRawNames);
+    }
+
+    /**
+     * @param array $folders
+     * @return array
+     */
+    private function stripFolderNames(array $folders)
+    {
+        $folderList = array();
+
+        foreach ($folders as $folder) {
+            $folderList[] = str_replace($this->buildConnectionString(), '', $folder);
+        }
+
+        return $folderList;
     }
 
     /**
