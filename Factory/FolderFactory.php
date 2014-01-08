@@ -49,13 +49,27 @@ class FolderFactory
      */
     private function setSubFolderByFolderList(Folder $folder, array $subFolders)
     {
-        foreach ($subFolders as $subFolder) {
+        foreach ($subFolders as $subFolderPath) {
             $subFolderInstance = new Folder();
-            $subFolderInstance->setPath($subFolder);
+            $subFolderInstance->setPath($subFolderPath);
+            $subFolderInstance->setName(
+                $this->hydrateFolderNameFromPath($subFolderPath)
+            );
             $subFolderInstance->setSynchronized(false);
 
             $folder->addSubFolder($subFolderInstance);
         }
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     */
+    private function hydrateFolderNameFromPath($path)
+    {
+        $pathParts = explode('.', $path);
+
+        return (count($pathParts) > 1) ? end($pathParts) : $path;
     }
 
     /**

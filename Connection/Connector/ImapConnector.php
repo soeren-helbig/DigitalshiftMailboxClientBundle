@@ -5,6 +5,7 @@ namespace Digitalshift\MailboxClientBundle\Connection\Connector;
 use Digitalshift\MailboxClientBundle\Connection\BaseMailboxConnector;
 use Digitalshift\MailboxClientBundle\Connection\MailboxConnectorInterface;
 use Digitalshift\MailboxClientBundle\Exception\ImapConnectionException;
+use Digitalshift\MailboxClientBundle\Exception\ImapMailboxException;
 use Digitalshift\MailboxClientBundle\Factory\FolderFactory;
 use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
 
@@ -60,10 +61,11 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
 
         $this->setWorkingFolder($path);
 
-        $subfolders = $this->getSubfolders();
+        $subfolders = $this->getSubfolders($recursive);
         $messages = $this->getMessages();
+        $mailboxName = ($path) ? $path : $this->getCurrentMailboxName();
 
-        return $this->folderFactory->byImapFolderListAndMessageList($path, $subfolders, $messages);
+        return $this->folderFactory->byImapFolderListAndMessageList($mailboxName, $subfolders, $messages);
     }
 
     /**
@@ -119,18 +121,25 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private function setWorkingFolder($path)
     {
         if ($path) {
-            imap_reopen($this->connection, $path);
+            imap_reopen($this->connection, $this->buildConnectionString().$path);
         }
     }
 
     /**
+     * @param boolean $recursive
      * @return array
      */
-    private function getSubfolders()
+    private function getSubfolders($recursive = false)
     {
-        $folderRawNames = imap_list($this->connection, $this->buildConnectionString(), '%');
+        $pattern = ($recursive) ? '*' : '.%';
 
-        return $this->stripFolderNames($folderRawNames);
+        $folderRawNames = imap_list(
+            $this->connection,
+            $this->buildConnectionString().$this->getCurrentMailboxName(),
+            $pattern
+        );
+
+        return ($folderRawNames) ? $this->stripFolderNames($folderRawNames) : array();
     }
 
     /**
@@ -210,6 +219,34 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
             $this->connection,
             $messageNumber
         );
+    }
+
+    /**
+     * @return string
+     *
+     * @throws ImapMailboxException
+     */
+    private function getCurrentMailboxName()
+    {
+        $mailboxInfo = imap_mailboxmsginfo($this->connection);
+
+        if (!$mailboxInfo) {
+            throw new ImapMailboxException();
+        }
+
+        return $this->hydrateMailboxName($mailboxInfo);
+    }
+
+    /**
+     * @param string $mailboxInfo
+     * @return string mixed
+     */
+    private function hydrateMailboxName($mailboxInfo)
+    {
+        // {mail.digitalshift.de:993/imap/notls/ssl/novalidate-cert/user="1000-001@mail.digitalshift.de"}INBOX
+        preg_match('/^{.+}(.+)$/', $mailboxInfo->Mailbox, $matches);
+
+        return (count($matches) == 2) ? $matches[1] : '';
     }
 
     /**
