@@ -6,9 +6,9 @@ Add MailboxClientBundle to your `composer.json`:
 
 ```json
 "require": {
-    …,
+    ...,
     "digitalshift/mailbox-client-bundle": "dev-master",
-    …
+    ...
 },
 ```
 
@@ -24,12 +24,13 @@ Enable MailboxClientBundle in `app/AppKernel.php`:
 public function registerBundles()
 {
     $bundles = array(
-        …,
+        ...,
         new Digitalshift\MailboxClientBundle\DigitalshiftMailboxClientBundle(),
-        …
+        ...
     );
 
-    …
+    ...
 }
 ```
 
+Next you should configure the MailboxClientBundle to set mailbox userdata for example. See [Configuration-chapter](configuration.md)
