@@ -33,4 +33,4 @@ public function registerBundles()
 }
 ```
 
-Next you should configure the MailboxClientBundle to set mailbox userdata for example. See [Configuration-chapter](configuration.md)
+Thats it! Now you should configure the MailboxClientBundle, to set mailbox userdata for example. See [Configuration](configuration.md)-chapter.
