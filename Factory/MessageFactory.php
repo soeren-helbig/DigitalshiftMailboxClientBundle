@@ -1,6 +1,7 @@
 <?php
 
 namespace Digitalshift\MailboxClientBundle\Factory;
+use Digitalshift\MailboxClientBundle\Mailbox\Folder;
 use Digitalshift\MailboxClientBundle\Mailbox\Message;
 
 /**
@@ -37,11 +38,11 @@ class MessageFactory
      * creates Message instance of raw mail string.
      *
      * @param \stdClass $message
+     * @param Folder $folder
      * @param string $messageId
-     * @param string $folder
      * @return Message
      */
-    public function byRawMessage($message, $messageId = null, $folder = null)
+    public function byRawMessage($message, Folder $folder = null, $messageId = null)
     {
         $mimeParts = $this->messageMimePartsFactory->byRawContent($message->header.$message->body);
         $header = $this->messageHeaderFactory->byRawContent($message->header);

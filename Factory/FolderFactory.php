@@ -26,15 +26,19 @@ class FolderFactory
     }
 
     /**
-     * @param string $folder
+     * @param string $folderPath
      * @param array $subFolders
      * @param array $messages
      * @return Folder
      */
-    public function byImapFolderListAndMessageList($folder, array $subFolders, array $messages)
+    public function byImapFolderListAndMessageList($folderPath, array $subFolders, array $messages)
     {
         $folderInstance = new Folder();
-        $folderInstance->setPath($folder);
+        $folderInstance->setPath($folderPath);
+        $folderInstance->setName(
+            $this->hydrateFolderNameFromPath($folderPath)
+        );
+
         $folderInstance->setSynchronized(true);
 
         $this->setSubFolderByFolderList($folderInstance, $subFolders);
@@ -79,7 +83,7 @@ class FolderFactory
     private function setMessagesByMessageList(Folder $folder, array $messages)
     {
         foreach ($messages as $message) {
-            $messageInstance = $this->messageFactory->byRawMessage($message);
+            $messageInstance = $this->messageFactory->byRawMessage($message, $folder);
             $folder->addMessage($messageInstance);
         }
     }
