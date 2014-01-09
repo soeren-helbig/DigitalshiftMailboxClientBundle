@@ -9,6 +9,7 @@ services:
     digitalshift_mailbox_client.connector:
         class: %digitalshift_mailbox_client.connector.class%
         arguments:
+            - %digitalshift_mailbox_client.imap_userdata%
             - @digitalshift_mailbox_client.factory.message
             - @digitalshift_mailbox_client.factory.folder
 

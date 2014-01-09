@@ -50,7 +50,7 @@ abstract class BaseMailboxConnector
      * @param integer port
      * @param array $flags
      */
-    public function initialize($username, $password, $url, $port = 0, array $flags = array())
+    protected function initialize($username, $password, $url, $port = 0, array $flags = array())
     {
         $this->username = $username;
         $this->password = $password;

@@ -31,13 +31,32 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private $folderFactory;
 
     /**
+     * @param array $userData
      * @param MessageFactory $messageFactory
      * @param FolderFactory $folderFactory
      */
-    public function __construct(MessageFactory $messageFactory, FolderFactory $folderFactory)
+    public function __construct(array $userData, MessageFactory $messageFactory, FolderFactory $folderFactory)
     {
         $this->messageFactory = $messageFactory;
         $this->folderFactory = $folderFactory;
+
+        $this->initialize(
+            $userData['user'],
+            $userData['password'],
+            $userData['url'],
+            $userData['port'],
+            $userData['flags']
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function __destruct()
+    {
+        if ($this->connection) {
+            $this->disconnect();
+        }
     }
 
     /**
@@ -45,8 +64,8 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     public function disconnect()
     {
-        if ($this->connection) {
-            imap_close($this->connection);
+        if ($this->connection && imap_close($this->connection)) {
+            $this->connection = null;
         }
     }
 
@@ -100,12 +119,8 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         $connectionString .= ':';
         $connectionString .= $this->port;
 
-        foreach ($this->flags as $flag => $value) {
+        foreach ($this->flags as $flag) {
             $connectionString .= '/' . $flag;
-
-            if (is_string($value) || is_numeric($value)) {
-                $connectionString .= '=' . $value;
-            }
         }
 
         $connectionString .= self::CONNECTION_STRING_SUFFIX;
