@@ -20,3 +20,8 @@
 
 * access to mails, including raw content (mime-parts) & headers on the one hand and theirs abstract content (html-content, plain-content, attachements)
 * see [Mailbox/Message.php](Mailbox/Message.php) for complete fieldlist
+
+### Installation / Configuration
+
+* install doc see: [installation](Resources/doc/installation.md)-chapter
+* configuration doc see: [configuration](Resources/doc/configuration.md)-chapter
