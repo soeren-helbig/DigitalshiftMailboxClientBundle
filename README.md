@@ -28,7 +28,7 @@
 
 ### Basic Usage
 
-* in your controller (for example), you can do things like that:
+The main access point is the `digitalshift_mailbox_client.connector`-service. It encapsulates your mailbox-connection and internally uses factories to build [Folder](Mailbox/Folder.php)- and [Message](Mailbox/Message.php)-instances from mailbox data. In your controller (for example), you can do things like that:
 
 ```php
 class DefaultController extends Controller
