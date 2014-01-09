@@ -20,6 +20,11 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     const CONNECTION_STRING_PREFIX = '{';
     const CONNECTION_STRING_SUFFIX = '}';
 
+    const CONNECTION_STRING_FLAG_SEPARATOR = '/';
+
+    const IMAP_LIST_PLAIN = '.%';
+    const IMAP_LIST_RECURSIVE = '*';
+
     /**
      * @var MessageFactory
      */
@@ -31,14 +36,25 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private $folderFactory;
 
     /**
+     * @var ImapLibrary
+     */
+    private $imapLibrary;
+
+    /**
      * @param array $userData
      * @param MessageFactory $messageFactory
      * @param FolderFactory $folderFactory
+     * @param ImapLibrary $imapLibrary
      */
-    public function __construct(array $userData, MessageFactory $messageFactory, FolderFactory $folderFactory)
-    {
+    public function __construct(
+        array $userData,
+        MessageFactory $messageFactory,
+        FolderFactory $folderFactory,
+        ImapLibrary $imapLibrary
+    ) {
         $this->messageFactory = $messageFactory;
         $this->folderFactory = $folderFactory;
+        $this->imapLibrary = $imapLibrary;
 
         $this->initialize(
             $userData['user'],
@@ -96,12 +112,19 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     {
         $connectionString = $this->buildConnectionString();
 
-        $this->connection = imap_open(
+        $this->connection = $this->imapLibrary->imapOpen(
             $connectionString,
             $this->username,
             $this->password,
             OP_SILENT || OP_DEBUG
         );
+
+//        $this->connection = imap_open(
+//            $connectionString,
+//            $this->username,
+//            $this->password,
+//            OP_SILENT || OP_DEBUG
+//        );
 
         if (!$this->connection) {
             throw new ImapConnectionException();
@@ -120,7 +143,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         $connectionString .= $this->port;
 
         foreach ($this->flags as $flag) {
-            $connectionString .= '/' . $flag;
+            $connectionString .= self::CONNECTION_STRING_FLAG_SEPARATOR . $flag;
         }
 
         $connectionString .= self::CONNECTION_STRING_SUFFIX;
@@ -146,13 +169,19 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getSubfolders($recursive = false)
     {
-        $pattern = ($recursive) ? '*' : '.%';
+        $pattern = ($recursive) ? self::IMAP_LIST_RECURSIVE : self::IMAP_LIST_PLAIN;
 
-        $folderRawNames = imap_list(
+        $folderRawNames = $this->imapLibrary->imapList(
             $this->connection,
             $this->buildConnectionString().$this->getCurrentMailboxName(),
             $pattern
         );
+
+//        $folderRawNames = imap_list(
+//            $this->connection,
+//            $this->buildConnectionString().$this->getCurrentMailboxName(),
+//            $pattern
+//        );
 
         return ($folderRawNames) ? $this->stripFolderNames($folderRawNames) : array();
     }
@@ -205,14 +234,23 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getFolderOverview()
     {
-        $mailboxInfo = imap_check($this->connection);
+        $mailboxInfo = $this->imapLibrary->imapCheck($this->connection);
+
+//        $mailboxInfo = imap_check($this->connection);
 
         /* get overview of all messages in connected mailbox and return it */
-        return imap_fetch_overview(
+        return $this->imapLibrary->imapFetchOverview(
             $this->connection,
             '1:' . $mailboxInfo->Nmsgs,
             0
         );
+
+//        /* get overview of all messages in connected mailbox and return it */
+//        return imap_fetch_overview(
+//            $this->connection,
+//            '1:' . $mailboxInfo->Nmsgs,
+//            0
+//        );
     }
 
     /**
@@ -221,7 +259,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getMessageHeader($messageNumber)
     {
-        return imap_fetchheader($this->connection, $messageNumber);
+        return $this->imapLibrary->imapFetchHeader($this->connection, $messageNumber);
+
+//        return imap_fetchheader($this->connection, $messageNumber);
     }
 
     /**
@@ -230,10 +270,12 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getMessageBody($messageNumber)
     {
-        return imap_body(
-            $this->connection,
-            $messageNumber
-        );
+        return $this->imapLibrary->imapBody($this->connection, $messageNumber);
+
+//        return imap_body(
+//            $this->connection,
+//            $messageNumber
+//        );
     }
 
     /**
@@ -243,7 +285,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function getCurrentMailboxName()
     {
-        $mailboxInfo = imap_mailboxmsginfo($this->connection);
+        $mailboxInfo = $this->imapLibrary->imapMailboxMsgInfo($this->connection);
+
+//        $mailboxInfo = imap_mailboxmsginfo($this->connection);
 
         if (!$mailboxInfo) {
             throw new ImapMailboxException();

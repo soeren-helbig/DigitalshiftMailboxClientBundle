@@ -1,5 +1,6 @@
 parameters:
     digitalshift_mailbox_client.connector.class: Digitalshift\MailboxClientBundle\Connection\Connector\ImapConnector
+    digitalshift_mailbox_client.connector.imapLibrary.class: Digitalshift\MailboxClientBundle\Connection\Connector\ImapLibrary
     digitalshift_mailbox_client.factory.folder.class: Digitalshift\MailboxClientBundle\Factory\FolderFactory
     digitalshift_mailbox_client.factory.message.class: Digitalshift\MailboxClientBundle\Factory\MessageFactory
     digitalshift_mailbox_client.factory.message_header.class: Digitalshift\MailboxClientBundle\Factory\MessageHeaderFactory
@@ -12,6 +13,10 @@ services:
             - %digitalshift_mailbox_client.imap_userdata%
             - @digitalshift_mailbox_client.factory.message
             - @digitalshift_mailbox_client.factory.folder
+            - @digitalshift_mailbox_client.connector.imapLibrary
+
+    digitalshift_mailbox_client.connector.imapLibrary:
+        class: %digitalshift_mailbox_client.connector.imapLibrary.class%
 
     digitalshift_mailbox_client.factory.folder:
         class: %digitalshift_mailbox_client.factory.folder.class%
