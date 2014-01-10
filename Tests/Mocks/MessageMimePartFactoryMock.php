@@ -13,11 +13,47 @@ use Digitalshift\MailboxClientBundle\Factory\MessageMimePartFactory;
 class MessageMimePartFactoryMock extends MessageMimePartFactory
 {
     /**
+     * file to read serialized MessageHeaders-instance data
+     *
+     * @var string
+     */
+    private $sourceFile;
+
+    /**
      * @{inheritdoc}
      */
     public function byRawContent($content)
     {
+        return $this->getDataFromFile();
+    }
 
+    /**
+     * @param string $sourceFile
+     */
+    public function setSourceFile($sourceFile)
+    {
+        $this->sourceFile = $sourceFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceFile()
+    {
+        return $this->sourceFile;
+    }
+
+
+    /**
+     * @return MessageHeaders
+     */
+    private function getDataFromFile()
+    {
+        $file = fopen($this->sourceFile, 'r');
+        $instanceData = fread($file, filesize($this->sourceFile));
+        fclose($file);
+
+        return unserialize($instanceData);
     }
 
 } 
