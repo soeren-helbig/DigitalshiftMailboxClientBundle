@@ -23,14 +23,6 @@ class MessageHeaderFactoryMock extends MessageHeaderFactory
     /**
      * @{inheritdoc}
      */
-    public function getArrayWithKeys($headerArray)
-    {
-
-    }
-
-    /**
-     * @{inheritdoc}
-     */
     public function byArray($headers)
     {
 

@@ -17,7 +17,7 @@ class ImapLibraryMock extends ImapLibrary
      */
     public function imapOpen($connectionString, $username, $password, $flags)
     {
-
+        return true;
     }
 
     /**

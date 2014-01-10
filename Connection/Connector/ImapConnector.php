@@ -119,13 +119,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
             OP_SILENT || OP_DEBUG
         );
 
-//        $this->connection = imap_open(
-//            $connectionString,
-//            $this->username,
-//            $this->password,
-//            OP_SILENT || OP_DEBUG
-//        );
-
         if (!$this->connection) {
             throw new ImapConnectionException();
         }
@@ -176,12 +169,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
             $this->buildConnectionString().$this->getCurrentMailboxName(),
             $pattern
         );
-
-//        $folderRawNames = imap_list(
-//            $this->connection,
-//            $this->buildConnectionString().$this->getCurrentMailboxName(),
-//            $pattern
-//        );
 
         return ($folderRawNames) ? $this->stripFolderNames($folderRawNames) : array();
     }
@@ -236,8 +223,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     {
         $mailboxInfo = $this->imapLibrary->imapCheck($this->connection);
 
-//        $mailboxInfo = imap_check($this->connection);
-
         /* get overview of all messages in connected mailbox and return it */
         return $this->imapLibrary->imapFetchOverview(
             $this->connection,
@@ -245,12 +230,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
             0
         );
 
-//        /* get overview of all messages in connected mailbox and return it */
-//        return imap_fetch_overview(
-//            $this->connection,
-//            '1:' . $mailboxInfo->Nmsgs,
-//            0
-//        );
     }
 
     /**
@@ -260,8 +239,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private function getMessageHeader($messageNumber)
     {
         return $this->imapLibrary->imapFetchHeader($this->connection, $messageNumber);
-
-//        return imap_fetchheader($this->connection, $messageNumber);
     }
 
     /**
@@ -271,11 +248,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private function getMessageBody($messageNumber)
     {
         return $this->imapLibrary->imapBody($this->connection, $messageNumber);
-
-//        return imap_body(
-//            $this->connection,
-//            $messageNumber
-//        );
     }
 
     /**
@@ -286,8 +258,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private function getCurrentMailboxName()
     {
         $mailboxInfo = $this->imapLibrary->imapMailboxMsgInfo($this->connection);
-
-//        $mailboxInfo = imap_mailboxmsginfo($this->connection);
 
         if (!$mailboxInfo) {
             throw new ImapMailboxException();
@@ -302,7 +272,6 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     private function hydrateMailboxName($mailboxInfo)
     {
-        // {mail.digitalshift.de:993/imap/notls/ssl/novalidate-cert/user="1000-001@mail.digitalshift.de"}INBOX
         preg_match('/^{.+}(.+)$/', $mailboxInfo->Mailbox, $matches);
 
         return (count($matches) == 2) ? $matches[1] : '';
