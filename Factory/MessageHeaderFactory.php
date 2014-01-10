@@ -34,12 +34,10 @@ class MessageHeaderFactory
         $header = array();
 
         foreach ($tmpHeader as $field) {
-            if (substr($field,0,1) !== "\t") {
+            if (substr($field,0,1) !== "\t" && substr($field,0,1) !== ' ') {
                 $header[] = $field;
             } else {
-                $headerField = end($header);
-                $headerField = $headerField . ' ' . $field;
-                $header[count($header)-1] = $headerField;
+                $header[count($header)-1] = $this->appendToLastField($header, $field);
             }
         }
 
@@ -47,10 +45,25 @@ class MessageHeaderFactory
     }
 
     /**
+     * @param array $headers
+     * @param string $rawValue
+     * @return string
+     */
+    private function appendToLastField(array $headers, $rawValue)
+    {
+        $value = preg_replace(array('/\s{2,}/', '/\t/'), ' ', $rawValue);
+
+        $headerField = end($headers);
+        $headerField = $headerField . ' ;' . $value;
+
+        return $headerField;
+    }
+
+    /**
      * @param array $headerArray
      * @return array
      */
-    public function getArrayWithKeys($headerArray)
+    private function getArrayWithKeys($headerArray)
     {
         $target = array();
 
