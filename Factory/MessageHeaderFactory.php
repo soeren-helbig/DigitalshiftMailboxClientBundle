@@ -18,10 +18,10 @@ class MessageHeaderFactory
      */
     public function byRawContent($header)
     {
-        $headerArray = $this->explodeMessageHeaderText($header);
-        $headerArray = $this->getArrayWithKeys($headerArray);
+//        $headerArray = $this->explodeMessageHeaderText($header);
+//        $headerArray = $this->getArrayWithKeys($headerArray);
 
-        return $this->byArray($headerArray);
+        return $this->byArray(iconv_mime_decode_headers($header));
     }
 
     /**
