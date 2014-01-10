@@ -34,5 +34,3 @@ services:
 
     digitalshift_mailbox_client.factory.message_mime_parts:
         class: %digitalshift_mailbox_client.factory.message_mime_parts.class%
-        arguments:
-            - @digitalshift_mailbox_client.factory.message_header

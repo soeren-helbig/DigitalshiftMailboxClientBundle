@@ -14,19 +14,6 @@ use Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection;
 class MessageMimePartFactory
 {
     /**
-     * @var MessageHeaderFactory
-     */
-    private $messageHeaderFactory;
-
-    /**
-     * @param MessageHeaderFactory $messageHeaderFactory
-     */
-    public function __construct(MessageHeaderFactory $messageHeaderFactory)
-    {
-        $this->messageHeaderFactory = $messageHeaderFactory;
-    }
-
-    /**
      * creates a MessageMimePartCollection instance by the raw content of a mail.
      *
      * @param $content
