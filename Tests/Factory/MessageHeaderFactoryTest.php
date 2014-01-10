@@ -14,7 +14,7 @@ use Digitalshift\MailboxClientBundle\Tests\BaseTestCase;
  */
 class MessageHeaderFactoryTest extends BaseTestCase
 {
-    const FIXTURE_PATH = '../Fixtures/Message/';
+    const FIXTURE_PATH = '../Fixtures/RawMessage/';
 
     /**
      * @dataProvider mailProvider

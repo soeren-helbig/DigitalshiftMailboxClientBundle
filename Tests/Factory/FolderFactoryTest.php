@@ -12,5 +12,8 @@ use Digitalshift\MailboxClientBundle\Tests\BaseTestCase;
  */
 class FolderFactoryTest extends BaseTestCase
 {
+    public function testByImapFolderListAndMessageList()
+    {
 
+    }
 } 

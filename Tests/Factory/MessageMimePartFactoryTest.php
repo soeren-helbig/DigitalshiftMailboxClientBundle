@@ -14,8 +14,8 @@ use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageHeaderFactoryMock;
  */
 class MessageMimePartFactoryTest extends BaseTestCase
 {
-    const FIXTURE_PATH = '../Fixtures/Message/';
-    const MIME_PART_PATH = '../Fixtures/Message/';
+    const FIXTURE_PATH = '../Fixtures/RawMessage/';
+    const MIME_PART_PATH = '../Fixtures/RawMessage/';
 
     /**
      * @dataProvider byRawContentProvider
