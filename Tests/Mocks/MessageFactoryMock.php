@@ -3,6 +3,7 @@
 namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
 
 use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
+use Digitalshift\MailboxClientBundle\Mailbox\Folder;
 use Digitalshift\MailboxClientBundle\Mailbox\Message;
 use Digitalshift\MailboxClientBundle\Mailbox\MessageHeaders;
 use Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection;
@@ -20,6 +21,9 @@ class MessageFactoryMock extends MessageFactory
      */
     public function byRawMessage($message, Folder $folder = null, $messageId = null)
     {
-        return new Message(new MessageHeaders(), new MessageMimePartCollection());
+        $messageInstance = new Message(new MessageHeaders(), new MessageMimePartCollection());
+        $messageInstance->setMailboxFolder($folder);
+
+        return $messageInstance;
     }
-} 
+}
