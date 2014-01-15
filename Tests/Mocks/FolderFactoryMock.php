@@ -18,7 +18,12 @@ class FolderFactoryMock extends FolderFactory
      */
     public function byImapFolderListAndMessageList($folderPath, array $subFolders, array $messages)
     {
+        $data = new \stdClass();
+        $data->folderPath = $folderPath;
+        $data->subfolders = $subFolders;
+        $data->messages = $messages;
 
+        return $data;
     }
 
 } 

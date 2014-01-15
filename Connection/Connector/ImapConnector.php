@@ -80,7 +80,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
      */
     public function disconnect()
     {
-        if ($this->connection && imap_close($this->connection)) {
+        if ($this->connection && $this->imapLibrary->imapClose($this->connection)) {
             $this->connection = null;
         }
     }
@@ -152,7 +152,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     private function setWorkingFolder($path)
     {
         if ($path) {
-            imap_reopen($this->connection, $this->buildConnectionString().$path);
+            $this->imapLibrary->imapReopen($this->connection, $this->buildConnectionString().$path);
         }
     }
 

@@ -24,6 +24,24 @@ class ImapLibrary
 
     /**
      * @param resource $imapResource
+     * @param string $path
+     */
+    public function imapReopen($imapResource, $path)
+    {
+        imap_reopen($imapResource, $path);
+    }
+
+    /**
+     * @param resource $imapResource
+     * @return bool
+     */
+    public function imapClose($imapResource)
+    {
+        return imap_close($imapResource);
+    }
+
+    /**
+     * @param resource $imapResource
      * @param string $mailbox
      * @param string $pattern
      * @return array

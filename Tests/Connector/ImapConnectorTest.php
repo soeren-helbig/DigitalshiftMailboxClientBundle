@@ -8,6 +8,7 @@ use Digitalshift\MailboxClientBundle\Tests\Mocks\FolderFactoryMock;
 use Digitalshift\MailboxClientBundle\Tests\Mocks\ImapLibraryMock;
 use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageFactoryMock;
 use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageHeaderFactoryMock;
+use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageMimePartFactoryMock;
 
 /**
  * ImapConnectorTest
@@ -22,9 +23,10 @@ class ImapConnectorTest extends BaseTestCase
      */
     public function testGetMessage()
     {
-//        $connector = $this->getConnector();
-//
-//        $message = $connector->getMessage(1);
+        $connector = $this->getConnector();
+        $message = $connector->getMessage(1);
+
+        $this->assertInstanceOf('Digitalshift\MailboxClientBundle\Mailbox\Message', $message);
     }
 
     /**
@@ -35,8 +37,17 @@ class ImapConnectorTest extends BaseTestCase
     public function testGetFolder()
     {
         $connector = $this->getConnector();
-
+        /** @var \stdClass $folder */
         $folder = $connector->getFolder();
+
+        $this->assertEquals('INBOX', $folder->folderPath);
+
+        $this->assertEquals(
+            array('INBOX.sub1', 'INBOX.sub2', 'INBOX.sub3', 'INBOX.sub4'),
+            $folder->subfolders
+        );
+
+        $this->assertEquals(2, count($folder->messages));
     }
 
     /**
@@ -44,10 +55,17 @@ class ImapConnectorTest extends BaseTestCase
      */
     private function getConnector()
     {
-        $userdata = array();
+        $userdata = array(
+            'user' => '',
+            'password' => '',
+            'url' => '',
+            'port' => '',
+            'flags' => array()
+        );
+
         $messageFactoryMock = new MessageFactoryMock(
             new MessageHeaderFactoryMock(),
-            new MessageHeaderFactoryMock()
+            new MessageMimePartFactoryMock()
         );
 
         return new ImapConnector(
