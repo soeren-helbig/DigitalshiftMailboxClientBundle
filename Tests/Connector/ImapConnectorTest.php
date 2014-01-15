@@ -19,17 +19,6 @@ use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageMimePartFactoryMock;
 class ImapConnectorTest extends BaseTestCase
 {
     /**
-     * tests message hydration
-     */
-    public function testGetMessage()
-    {
-        $connector = $this->getConnector();
-        $message = $connector->getMessage(1);
-
-        $this->assertInstanceOf('Digitalshift\MailboxClientBundle\Mailbox\Message', $message);
-    }
-
-    /**
      * tests folder hydration
      *
      * @depends testGetMessage
