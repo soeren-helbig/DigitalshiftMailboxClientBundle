@@ -1,9 +1,9 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxClientBundle\Factory\FolderFactory;
-use Digitalshift\MailboxClientBundle\Mailbox\Folder;
+use Digitalshift\MailboxConnectionBundle\Factory\FolderFactory;
+use Digitalshift\MailboxConnectionBundle\Mailbox\Folder;
 
 /**
  * FolderFactoryMock

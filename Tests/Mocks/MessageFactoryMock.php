@@ -1,12 +1,12 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
-use Digitalshift\MailboxClientBundle\Mailbox\Folder;
-use Digitalshift\MailboxClientBundle\Mailbox\Message;
-use Digitalshift\MailboxClientBundle\Mailbox\MessageHeaders;
-use Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection;
+use Digitalshift\MailboxConnectionBundle\Factory\MessageFactory;
+use Digitalshift\MailboxConnectionBundle\Mailbox\Folder;
+use Digitalshift\MailboxConnectionBundle\Mailbox\Message;
+use Digitalshift\MailboxConnectionBundle\Mailbox\MessageHeaders;
+use Digitalshift\MailboxConnectionBundle\Mailbox\MessageMimePartCollection;
 
 /**
  * MessageFactoryMock

@@ -1,4 +1,4 @@
-## DigitalshiftMailboxClientBundle
+## DigitalshiftMailboxConnectionBundle
 
 * encapsulates IMAP/POP3/… connections
 * provides MailboxAbstractionLayer

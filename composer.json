@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "A Symfony2 Bundle to read mailboxes & mails by imap/pop3.",
     "keywords": ["mail", "imap", "pop3", "mailbox"],
-    "homepage": "https://github.com/soeren-helbig/DigitalshiftMailboxClientBundle",
+    "homepage": "https://github.com/soeren-helbig/DigitalshiftMailboxConnectionBundle",
     "license": "MIT",
     "authors": [
         {
@@ -17,8 +17,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Digitalshift\\MailboxClientBundle": ""
+            "Digitalshift\\MailboxConnectionBundle": ""
         }
     },
-    "target-dir": "Digitalshift/MailboxClientBundle"
+    "target-dir": "Digitalshift/MailboxConnectionBundle"
 }

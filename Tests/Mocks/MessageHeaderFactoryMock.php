@@ -1,9 +1,9 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxClientBundle\Factory\MessageHeaderFactory;
-use Digitalshift\MailboxClientBundle\Mailbox\MessageHeaders;
+use Digitalshift\MailboxConnectionBundle\Factory\MessageHeaderFactory;
+use Digitalshift\MailboxConnectionBundle\Mailbox\MessageHeaders;
 
 /**
  * MessageHeaderFactoryMock

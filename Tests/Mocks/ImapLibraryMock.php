@@ -1,8 +1,8 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxClientBundle\Connection\Connector\ImapLibrary;
+use Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapLibrary;
 
 /**
  * ImapLibraryMock

@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\DependencyInjection;
+namespace Digitalshift\MailboxConnectionBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

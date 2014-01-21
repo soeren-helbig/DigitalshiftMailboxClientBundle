@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Connection;
+namespace Digitalshift\MailboxConnectionBundle\Connection;
 
 /**
  * BaseMailboxConnector

@@ -1,9 +1,9 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Connection;
+namespace Digitalshift\MailboxConnectionBundle\Connection;
 
-use Digitalshift\MailboxClientBundle\Entity\MailboxFolder;
-use Digitalshift\MailboxClientBundle\Entity\MailboxMessage;
+use Digitalshift\MailboxConnectionBundle\Entity\MailboxFolder;
+use Digitalshift\MailboxConnectionBundle\Entity\MailboxMessage;
 
 /**
  * MailboxConnectorInterface

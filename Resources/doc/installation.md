@@ -2,7 +2,7 @@
 
 #### 1.1 Update composer.json
 
-Add MailboxClientBundle to your `composer.json`:
+Add MailboxConnectionBundle to your `composer.json`:
 
 ```json
 "require": {
@@ -18,14 +18,14 @@ Run `php composer.phar update` command.
 
 ### 2. Enable Bundle
 
-Enable MailboxClientBundle in `app/AppKernel.php`:
+Enable MailboxConnectionBundle in `app/AppKernel.php`:
 
 ```php
 public function registerBundles()
 {
     $bundles = array(
         ...,
-        new Digitalshift\MailboxClientBundle\DigitalshiftMailboxClientBundle(),
+        new Digitalshift\MailboxConnectionBundle\DigitalshiftMailboxConnectionBundle(),
         ...
     );
 
@@ -33,4 +33,4 @@ public function registerBundles()
 }
 ```
 
-Thats it! Now you should configure the MailboxClientBundle, to set mailbox userdata for example. See [Configuration](configuration.md)-chapter.
+Thats it! Now you should configure the MailboxConnectionBundle, to set mailbox userdata for example. See [Configuration](configuration.md)-chapter.

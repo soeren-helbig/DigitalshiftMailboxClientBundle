@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\DependencyInjection;
+namespace Digitalshift\MailboxConnectionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

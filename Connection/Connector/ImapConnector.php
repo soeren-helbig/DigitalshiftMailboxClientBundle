@@ -1,13 +1,13 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Connection\Connector;
+namespace Digitalshift\MailboxConnectionBundle\Connection\Connector;
 
-use Digitalshift\MailboxClientBundle\Connection\BaseMailboxConnector;
-use Digitalshift\MailboxClientBundle\Connection\MailboxConnectorInterface;
-use Digitalshift\MailboxClientBundle\Exception\ImapConnectionException;
-use Digitalshift\MailboxClientBundle\Exception\ImapMailboxException;
-use Digitalshift\MailboxClientBundle\Factory\FolderFactory;
-use Digitalshift\MailboxClientBundle\Factory\MessageFactory;
+use Digitalshift\MailboxConnectionBundle\Connection\BaseMailboxConnector;
+use Digitalshift\MailboxConnectionBundle\Connection\MailboxConnectorInterface;
+use Digitalshift\MailboxConnectionBundle\Exception\ImapConnectionException;
+use Digitalshift\MailboxConnectionBundle\Exception\ImapMailboxException;
+use Digitalshift\MailboxAbstractionBundle\Factory\FolderFactory;
+use Digitalshift\MailboxAbstractionBundle\Factory\MessageFactory;
 
 /**
  * ImapConnector
@@ -106,7 +106,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     /**
      * connects to imap mailbox
      *
-     * @throws \Digitalshift\MailboxClientBundle\Exception\ImapConnectionException
+     * @throws \Digitalshift\MailboxConnectionBundle\Exception\ImapConnectionException
      */
     private function connect()
     {

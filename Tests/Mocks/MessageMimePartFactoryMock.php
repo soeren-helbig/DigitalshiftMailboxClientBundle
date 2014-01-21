@@ -1,8 +1,8 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxClientBundle\Factory\MessageMimePartFactory;
+use Digitalshift\MailboxConnectionBundle\Factory\MessageMimePartFactory;
 
 /**
  * MessageMimePartFactoryMock

@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Connection\Connector;
+namespace Digitalshift\MailboxConnectionBundle\Connection\Connector;
 
 /**
  * ImapLibrary

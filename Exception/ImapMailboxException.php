@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Exception;
+namespace Digitalshift\MailboxConnectionBundle\Exception;
 
 /**
  * ImapConnectionException
