@@ -10,6 +10,20 @@ namespace Digitalshift\MailboxClientBundle\Mailbox;
  */
 class Message
 {
+    const MIME_TYPE_HTML = 'text/html';
+    const MIME_TYPE_PLAIN = 'text/plain';
+    const MIME_TYPE_IMAGE = 'image/*';
+    const MIME_TYPE_AUDIO = 'audio/*';
+    const MIME_TYPE_VIDEO = 'video/*';
+    const MIME_TYPE_APPLICATION = 'application/*';
+
+    public static $MIME_TYPE_ATTACHMENT = array(
+        self::MIME_TYPE_IMAGE,
+        self::MIME_TYPE_AUDIO,
+        self::MIME_TYPE_VIDEO,
+        self::MIME_TYPE_APPLICATION
+    );
+
     /**
      * message id in mailbox
      *
@@ -34,7 +48,7 @@ class Message
     /**
      * mail mime-parts
      *
-     * @var MessageMimeParts
+     * @var \Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection
      */
     private $content;
 
@@ -79,40 +93,7 @@ class Message
     }
 
     /**
-     * hydrate html-content from mime parts
-     *
-     * @todo: implement this method
-     *
-     * @return string
-     */
-    public function getHtmlContent()
-    {
-    }
-
-    /**
-     * hydrate plain-content from mime parts
-     *
-     * @todo: implement this method
-     *
-     * @return string
-     */
-    public function getPlainContent()
-    {
-    }
-
-    /**
-     * hydrate attachements from mime parts
-     *
-     * @todo: implement this method
-     *
-     * @return string
-     */
-    public function getAttachments()
-    {
-    }
-
-    /**
-     * @param \Digitalshift\MailboxClientBundle\Mailbox\MessageMimeParts $content
+     * @param \Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection $content
      */
     public function setContent($content)
     {
@@ -120,7 +101,7 @@ class Message
     }
 
     /**
-     * @return \Digitalshift\MailboxClientBundle\Mailbox\MessageMimeParts
+     * @return \Digitalshift\MailboxClientBundle\Mailbox\MessageMimePartCollection
      */
     public function getContent()
     {
@@ -175,4 +156,114 @@ class Message
         return $this->messageId;
     }
 
+    /**
+     * hydrate plain-content from mime parts
+     *
+     * @return string
+     */
+    public function getPlainContent()
+    {
+        return $this->getPartsWithType(self::MIME_TYPE_PLAIN);
+    }
+
+    /**
+     * hydrate html-content from mime parts
+     *
+     * @return string
+     */
+    public function getHtmlContent()
+    {
+        return $this->getPartsWithType(self::MIME_TYPE_HTML);
+    }
+
+    /**
+     * @param string $mimeType
+     * @return string
+     */
+    private function getPartsWithType($mimeType)
+    {
+        $content = '';
+
+        /** @var \Digitalshift\MailboxClientBundle\Mailbox\MessageMimePart $mimePart */
+        foreach ($this->getContent() as $mimePart) {
+            $isHtmlPart = $this->matchesHeaderMimeType(
+                $mimePart->getHeader('content-type'),
+                array($mimeType)
+            );
+
+            $content = ($isHtmlPart) ? $content . $mimePart->decodeContent() : $content;
+        }
+
+        return $content;
+    }
+
+    /**
+     * @param string $mimeType
+     * @param array $compareMimeTypes
+     * @return bool
+     */
+    private function matchesHeaderMimeType($mimeType, array $compareMimeTypes)
+    {
+        $types = $this->getTypeArray($mimeType);
+
+        foreach ($compareMimeTypes as $compareType) {
+            $compareTypes = $this->getTypeArray($compareType);
+
+            if (
+                $compareTypes['base'] == $types['base'] &&
+                (
+                    $compareTypes['sub'] == '*' ||
+                    $compareTypes['sub'] == $types['sub']
+                )
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $type
+     * @return array
+     */
+    private function getTypeArray($type)
+    {
+        $tmpTypeArray = explode('/', $type);
+
+        return array(
+            'base' => $tmpTypeArray[0],
+            'sub' => $tmpTypeArray[1]
+        );
+    }
+
+    /**
+     * hydrate attachements from mime parts
+     *
+     * @return string
+     */
+    public function getAttachmentMimeParts()
+    {
+        return $this->getPartsWithAttachment();
+    }
+
+    /**
+     * @return array
+     */
+    private function getPartsWithAttachment()
+    {
+        $parts = array();
+
+        /** @var \Digitalshift\MailboxClientBundle\Mailbox\MessageMimePart $mimePart */
+        foreach ($this->getContent() as $mimePart) {
+            $isAttachment = $this->matchesHeaderMimeType(
+                $mimePart->getHeader('content-type'),
+                self::$MIME_TYPE_ATTACHMENT
+            );
+
+            ($isAttachment) ? $parts[] = $mimePart : null;
+        }
+
+        return $parts;
+    }
 } 
