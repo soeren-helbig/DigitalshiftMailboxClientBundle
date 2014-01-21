@@ -2,8 +2,7 @@
 
 namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxConnectionBundle\Factory\FolderFactory;
-use Digitalshift\MailboxConnectionBundle\Mailbox\Folder;
+use Digitalshift\MailboxAbstractionBundle\Factory\FolderFactory;
 
 /**
  * FolderFactoryMock

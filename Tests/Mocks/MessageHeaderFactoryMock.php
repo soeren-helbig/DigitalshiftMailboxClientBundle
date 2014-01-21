@@ -2,8 +2,8 @@
 
 namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxConnectionBundle\Factory\MessageHeaderFactory;
-use Digitalshift\MailboxConnectionBundle\Mailbox\MessageHeaders;
+use Digitalshift\MailboxAbstractionBundle\Factory\MessageHeaderFactory;
+use Digitalshift\MailboxAbstractionBundle\Entity\MessageHeaders;
 
 /**
  * MessageHeaderFactoryMock

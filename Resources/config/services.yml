@@ -1,15 +1,15 @@
 parameters:
-    digitalshift_mailbox_client.connector.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapConnector
-    digitalshift_mailbox_client.connector.imapLibrary.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapLibrary
+    digitalshift_mailbox_connection.connector.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapConnector
+    digitalshift_mailbox_connection.imapLibrary.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapLibrary
 
 services:
-    digitalshift_mailbox_client.connector:
-        class: %digitalshift_mailbox_client.connector.class%
+    digitalshift_mailbox_connection.connector:
+        class: %digitalshift_mailbox_connection.connector.class%
         arguments:
-            - %digitalshift_mailbox_client.imap_userdata%
+            - %digitalshift_mailbox_connection.imap_userdata%
             - @digitalshift_mailbox_abstraction.factory.message
             - @digitalshift_mailbox_abstraction.factory.folder
-            - @digitalshift_mailbox_client.connector.imapLibrary
+            - @digitalshift_mailbox_connection.imapLibrary
 
-    digitalshift_mailbox_client.connector.imapLibrary:
-        class: %digitalshift_mailbox_client.connector.imapLibrary.class%
+    digitalshift_mailbox_connection.imapLibrary:
+        class: %digitalshift_mailbox_connection.imapLibrary.class%

@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class DigitalshiftMailboxClientExtension extends Extension
+class DigitalshiftMailboxConnectionExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -22,7 +22,7 @@ class DigitalshiftMailboxClientExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('digitalshift_mailbox_client.imap_userdata', $config['imap']);
+        $container->setParameter('digitalshift_mailbox_connection.imap_userdata', $config['imap']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

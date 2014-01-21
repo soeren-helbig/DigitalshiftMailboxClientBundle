@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests;
+namespace Digitalshift\MailboxConnectionBundle\Tests;
 
 /**
  * BaseTestCase

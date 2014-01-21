@@ -2,11 +2,11 @@
 
 namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxConnectionBundle\Factory\MessageFactory;
-use Digitalshift\MailboxConnectionBundle\Mailbox\Folder;
-use Digitalshift\MailboxConnectionBundle\Mailbox\Message;
-use Digitalshift\MailboxConnectionBundle\Mailbox\MessageHeaders;
-use Digitalshift\MailboxConnectionBundle\Mailbox\MessageMimePartCollection;
+use Digitalshift\MailboxAbstractionBundle\Factory\MessageFactory;
+use Digitalshift\MailboxAbstractionBundle\Entity\Folder;
+use Digitalshift\MailboxAbstractionBundle\Entity\Message;
+use Digitalshift\MailboxAbstractionBundle\Entity\MessageHeaders;
+use Digitalshift\MailboxAbstractionBundle\Entity\MessageMimePartCollection;
 
 /**
  * MessageFactoryMock

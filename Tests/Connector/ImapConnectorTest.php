@@ -1,14 +1,14 @@
 <?php
 
-namespace Digitalshift\MailboxClientBundle\Tests\Connector;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Connector;
 
-use Digitalshift\MailboxClientBundle\Connection\Connector\ImapConnector;
-use Digitalshift\MailboxClientBundle\Tests\BaseTestCase;
-use Digitalshift\MailboxClientBundle\Tests\Mocks\FolderFactoryMock;
-use Digitalshift\MailboxClientBundle\Tests\Mocks\ImapLibraryMock;
-use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageFactoryMock;
-use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageHeaderFactoryMock;
-use Digitalshift\MailboxClientBundle\Tests\Mocks\MessageMimePartFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapConnector;
+use Digitalshift\MailboxConnectionBundle\Tests\BaseTestCase;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\FolderFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\ImapLibraryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageHeaderFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageMimePartFactoryMock;
 
 /**
  * ImapConnectorTest
@@ -20,8 +20,6 @@ class ImapConnectorTest extends BaseTestCase
 {
     /**
      * tests folder hydration
-     *
-     * @depends testGetMessage
      */
     public function testGetFolder()
     {

@@ -2,7 +2,7 @@
 
 namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
 
-use Digitalshift\MailboxConnectionBundle\Factory\MessageMimePartFactory;
+use Digitalshift\MailboxAbstractionBundle\Factory\MessageMimePartFactory;
 
 /**
  * MessageMimePartFactoryMock
