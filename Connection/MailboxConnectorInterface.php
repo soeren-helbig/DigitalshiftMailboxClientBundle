@@ -28,9 +28,10 @@ interface MailboxConnectorInterface
     /**
      * @param string $messageNumber
      * @param string $path
+     * @param boolean $isUid
      * @return MailboxMessage
      */
-    public function getMessage($messageNumber, $path = null);
+    public function getMessage($messageNumber, $path = null, $isUid = false);
 
     /**
      * @return integer

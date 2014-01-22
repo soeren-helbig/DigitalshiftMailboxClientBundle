@@ -205,13 +205,14 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
 
     /**
      * @param integer $messageNumber
+     * @param boolean $isUid
      * @return \stdClass
      */
-    private function retrieveMessage($messageNumber)
+    private function retrieveMessage($messageNumber, $isUid = false)
     {
         $message = new \stdClass();
-        $message->header = $this->getMessageHeader($messageNumber);
-        $message->body = $this->getMessageBody($messageNumber);
+        $message->header = $this->getMessageHeader($messageNumber, $isUid);
+        $message->body = $this->getMessageBody($messageNumber, $isUid);
 
         return $message;
     }
@@ -234,20 +235,22 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
 
     /**
      * @param integer $messageNumber
+     * @param boolean $isUid
      * @return array
      */
-    private function getMessageHeader($messageNumber)
+    private function getMessageHeader($messageNumber, $isUid = false)
     {
-        return $this->imapLibrary->imapFetchHeader($this->connection, $messageNumber);
+        return $this->imapLibrary->imapFetchHeader($this->connection, $messageNumber, $isUid);
     }
 
     /**
      * @param integer $messageNumber
+     * @param boolean $isUid
      * @return string
      */
-    private function getMessageBody($messageNumber)
+    private function getMessageBody($messageNumber, $isUid = false)
     {
-        return $this->imapLibrary->imapBody($this->connection, $messageNumber);
+        return $this->imapLibrary->imapBody($this->connection, $messageNumber, $isUid);
     }
 
     /**
@@ -280,7 +283,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     /**
      * @{inheritdoc}
      */
-    public function getMessage($messageNumber, $path = null)
+    public function getMessage($messageNumber, $path = null, $isUid = false)
     {
         if (!$this->connection) {
             $this->connect();
@@ -291,7 +294,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         }
 
         return $this->messageFactory->byRawMessage(
-            $this->retrieveMessage($messageNumber)
+            $this->retrieveMessage($messageNumber, $isUid)
         );
     }
 

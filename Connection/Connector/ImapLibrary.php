@@ -74,21 +74,27 @@ class ImapLibrary
     /**
      * @param resource $imapResource
      * @param integer $messageNumber
+     * @param boolean $isUid
      * @return string
      */
-    public function imapFetchHeader($imapResource, $messageNumber)
+    public function imapFetchHeader($imapResource, $messageNumber, $isUid = false)
     {
-        return imap_fetchheader($imapResource, $messageNumber);
+        $options = ($isUid) ? FT_UID : 0;
+
+        return imap_fetchheader($imapResource, $messageNumber, $options);
     }
 
     /**
      * @param resource $imapResource
      * @param integer $messageNumber
+     * @param boolean $isUid
      * @return string
      */
-    public function imapBody($imapResource, $messageNumber)
+    public function imapBody($imapResource, $messageNumber, $isUid = false)
     {
-        return imap_body($imapResource, $messageNumber);
+        $options = ($isUid) ? FT_UID : 0;
+
+        return imap_body($imapResource, $messageNumber, $options);
     }
 
     /**
