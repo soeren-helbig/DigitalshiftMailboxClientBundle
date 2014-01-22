@@ -105,4 +105,14 @@ class ImapLibrary
     {
         return imap_mailboxmsginfo($imapResource);
     }
+
+    /**
+     * @param $imapResource
+     * @param $messageNumber
+     * @return int
+     */
+    public function imapUid($imapResource, $messageNumber)
+    {
+        return imap_uid($imapResource, $messageNumber);
+    }
 } 
