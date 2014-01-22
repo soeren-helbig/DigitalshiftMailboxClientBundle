@@ -124,4 +124,11 @@ class ImapLibraryMock extends ImapLibrary
         return $mailboxInfo;
     }
 
+    /**
+     * @{inheritdoc}
+     */
+    public function imapUid($imapResource, $messageNumber)
+    {
+        return 1111;
+    }
 } 
