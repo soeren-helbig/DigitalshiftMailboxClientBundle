@@ -213,8 +213,8 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         $message = new \stdClass();
         $message->header = $this->getMessageHeader($messageNumber, $isUid);
         $message->body = $this->getMessageBody($messageNumber, $isUid);
-        $message->imapUid = ($isUid) ? $messageNumber : $this->getMessageUid($messageNumber);
-        $message->imapPath = $this->getCurrentMailboxName();
+        $message->mailboxUid = ($isUid) ? $messageNumber : $this->getMessageUid($messageNumber);
+        $message->mailboxPath = $this->getCurrentMailboxName();
 
         return $message;
     }
