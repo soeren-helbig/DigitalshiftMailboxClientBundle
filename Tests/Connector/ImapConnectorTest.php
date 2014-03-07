@@ -4,11 +4,11 @@ namespace Digitalshift\MailboxConnectionBundle\Tests\Connector;
 
 use Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapConnector;
 use Digitalshift\MailboxConnectionBundle\Tests\BaseTestCase;
-use Digitalshift\MailboxConnectionBundle\Tests\Mocks\FolderFactoryMock;
-use Digitalshift\MailboxConnectionBundle\Tests\Mocks\ImapLibraryMock;
-use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageFactoryMock;
-use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageHeaderFactoryMock;
-use Digitalshift\MailboxConnectionBundle\Tests\Mocks\MessageMimePartFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector\FolderFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector\ImapLibraryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector\MimeMessageFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector\MimeMessageHeaderFactoryMock;
+use Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector\MimeMessagePartFactoryMock;
 
 /**
  * ImapConnectorTest
@@ -50,9 +50,9 @@ class ImapConnectorTest extends BaseTestCase
             'flags' => array()
         );
 
-        $messageFactoryMock = new MessageFactoryMock(
-            new MessageHeaderFactoryMock(),
-            new MessageMimePartFactoryMock()
+        $messageFactoryMock = new MimeMessageFactoryMock(
+            new MimeMessageHeaderFactoryMock(),
+            new MimeMessagePartFactoryMock()
         );
 
         return new ImapConnector(

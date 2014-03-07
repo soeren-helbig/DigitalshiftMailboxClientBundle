@@ -1,7 +1,7 @@
 ## DigitalshiftMailboxConnectionBundle
 
 * encapsulates IMAP/POP3/… connections
-* provides MailboxAbstractionLayer
+* provides abstraction layer for MimeMessages / Mailbox-Folders
 * depends on [PECL/mailparse Library](http://pecl.php.net/package/mailparse)
 
 ### Supported Mailbox Connections / Protocols
@@ -11,14 +11,14 @@
 
 ### Abstraction-Layer
 
-#### Mailbox / Folder
+#### Mailbox - Folder
 
 * access to mailbox folders, including their intire messages and subfolders (self-referencing)
 * see [Mailbox/Folder.php](Mailbox/Folder.php) for complete fieldlist
 
-#### Mailbox / Message
+#### MimeMessage
 
-* access to mails, including raw content (mime-parts) & headers on the one hand and theirs abstract content (html-content, plain-content, attachements)
+* access to mails, including raw content (mime-parts) & headers
 * see [Mailbox/Message.php](Mailbox/Message.php) for complete fieldlist
 
 ### Installation / Configuration

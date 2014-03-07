@@ -1,5 +1,11 @@
 parameters:
     digitalshift_mailbox_connection.connector.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapConnector
+
+    digitalshift_mailbox_connection.factory.folder.class: Digitalshift\MailboxConnectionBundle\Factory\FolderFactory
+    digitalshift_mailbox_connection.factory.mime_message.class: Digitalshift\MailboxConnectionBundle\Factory\MimeMessageFactory
+    digitalshift_mailbox_connection.factory.mime_message_header.class: Digitalshift\MailboxConnectionBundle\Factory\MimeMessageHeaderFactory
+    digitalshift_mailbox_connection.factory.mime_message_parts.class: Digitalshift\MailboxConnectionBundle\Factory\MimeMessagePartFactory
+
     digitalshift_mailbox_connection.imapLibrary.class: Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapLibrary
 
 services:
@@ -7,9 +13,26 @@ services:
         class: %digitalshift_mailbox_connection.connector.class%
         arguments:
             - %digitalshift_mailbox_connection.imap_userdata%
-            - @digitalshift_mailbox_abstraction.factory.message
-            - @digitalshift_mailbox_abstraction.factory.folder
+            - @digitalshift_mailbox_connection.factory.mime_message
+            - @digitalshift_mailbox_connection.factory.folder
             - @digitalshift_mailbox_connection.imapLibrary
+
+    digitalshift_mailbox_connection.factory.folder:
+        class: %digitalshift_mailbox_connection.factory.folder.class%
+        arguments:
+            - @digitalshift_mailbox_connection.factory.mime_message
+
+    digitalshift_mailbox_connection.factory.mime_message:
+        class: %digitalshift_mailbox_connection.factory.mime_message.class%
+        arguments:
+            - @digitalshift_mailbox_connection.factory.mime_message_header
+            - @digitalshift_mailbox_connection.factory.mime_message_parts
+
+    digitalshift_mailbox_connection.factory.mime_message_header:
+        class: %digitalshift_mailbox_connection.factory.mime_message_header.class%
+
+    digitalshift_mailbox_connection.factory.mime_message_parts:
+        class: %digitalshift_mailbox_connection.factory.mime_message_parts.class%
 
     digitalshift_mailbox_connection.imapLibrary:
         class: %digitalshift_mailbox_connection.imapLibrary.class%

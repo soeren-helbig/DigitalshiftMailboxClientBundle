@@ -6,8 +6,8 @@ use Digitalshift\MailboxConnectionBundle\Connection\BaseMailboxConnector;
 use Digitalshift\MailboxConnectionBundle\Connection\MailboxConnectorInterface;
 use Digitalshift\MailboxConnectionBundle\Exception\ImapConnectionException;
 use Digitalshift\MailboxConnectionBundle\Exception\ImapMailboxException;
-use Digitalshift\MailboxAbstractionBundle\Factory\FolderFactory;
-use Digitalshift\MailboxAbstractionBundle\Factory\MessageFactory;
+use Digitalshift\MailboxConnectionBundle\Factory\FolderFactory;
+use Digitalshift\MailboxConnectionBundle\Factory\MimeMessageFactory;
 
 /**
  * ImapConnector
@@ -26,7 +26,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     const IMAP_LIST_RECURSIVE = '*';
 
     /**
-     * @var MessageFactory
+     * @var MimeMessageFactory
      */
     private $messageFactory;
 
@@ -42,13 +42,13 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
 
     /**
      * @param array $userData
-     * @param MessageFactory $messageFactory
+     * @param MimeMessageFactory $messageFactory
      * @param FolderFactory $folderFactory
      * @param ImapLibrary $imapLibrary
      */
     public function __construct(
         array $userData,
-        MessageFactory $messageFactory,
+        MimeMessageFactory $messageFactory,
         FolderFactory $folderFactory,
         ImapLibrary $imapLibrary
     ) {
@@ -281,7 +281,7 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     }
 
     /**
-     * @param string $mailboxInfo
+     * @param \stdClass $mailboxInfo
      * @return string mixed
      */
     private function hydrateMailboxName($mailboxInfo)
@@ -305,7 +305,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         }
 
         return $this->messageFactory->byRawMessage(
-            $this->retrieveMessage($messageNumber, $isUid)
+            $this->retrieveMessage($messageNumber, $isUid),
+            $path,
+            ($isUid) ? $messageNumber : $this->getMessageUid($messageNumber)
         );
     }
 
