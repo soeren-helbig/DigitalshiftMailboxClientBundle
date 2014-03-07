@@ -14,12 +14,12 @@
 #### Mailbox - Folder
 
 * access to mailbox folders, including their intire messages and subfolders (self-referencing)
-* see [Mailbox/Folder.php](Mailbox/Folder.php) for complete fieldlist
+* see [Entity/Folder.php](Entity/Folder.php) for complete fieldlist
 
 #### MimeMessage
 
 * access to mails, including raw content (mime-parts) & headers
-* see [Mailbox/Message.php](Mailbox/Message.php) for complete fieldlist
+* see [Entity/MimeMessage.php](Entity/MimeMessage.php) for complete fieldlist
 
 ### Installation / Configuration
 
@@ -28,7 +28,7 @@
 
 ### Basic Usage
 
-The main access point is the `digitalshift_mailbox_client.connector`-service. It encapsulates your mailbox-connection and internally uses factories to build [Folder](Mailbox/Folder.php)- and [Message](Mailbox/Message.php)-instances from mailbox data. In your controller (for example), you can do things like that:
+The main access point is the `digitalshift_mailbox_client.connector`-service. It encapsulates your mailbox-connection and internally uses factories to build [Folder](Entity/Folder.php)- and [MimeMessage](Entity/MimeMessage.php)-instances by the recieved mailbox data. In your controller (for example), you can do things like that:
 
 ```php
 class DefaultController extends Controller
