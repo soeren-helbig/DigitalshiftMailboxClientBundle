@@ -1,6 +1,6 @@
 <?php
 
-namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector;
 
 use Digitalshift\MailboxConnectionBundle\Connection\Connector\ImapLibrary;
 
@@ -94,7 +94,7 @@ class ImapLibraryMock extends ImapLibrary
      */
     private function loadMessageFixture($messageNumber = 1, $header = false)
     {
-        $basePath = __DIR__.'/../Fixtures/RawMessage/';
+        $basePath = __DIR__.'/../../Fixtures/RawMessage/';
         $filePath = $basePath . 'message'.$messageNumber;
         $filePath .= ($header) ? '_header' : '_body';
 

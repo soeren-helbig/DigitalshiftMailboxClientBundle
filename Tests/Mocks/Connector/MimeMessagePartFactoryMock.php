@@ -1,8 +1,9 @@
 <?php
 
-namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks;
+namespace Digitalshift\MailboxConnectionBundle\Tests\Mocks\Connector;
 
-use Digitalshift\MailboxAbstractionBundle\Factory\MessageMimePartFactory;
+use Digitalshift\MailboxConnectionBundle\Entity\MimeMessageHeaders;
+use Digitalshift\MailboxConnectionBundle\Factory\MimeMessagePartFactory;
 
 /**
  * MessageMimePartFactoryMock
@@ -10,7 +11,7 @@ use Digitalshift\MailboxAbstractionBundle\Factory\MessageMimePartFactory;
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
  */
-class MessageMimePartFactoryMock extends MessageMimePartFactory
+class MimeMessagePartFactoryMock extends MimeMessagePartFactory
 {
     /**
      * file to read serialized MessageHeaders-instance data
@@ -45,7 +46,7 @@ class MessageMimePartFactoryMock extends MessageMimePartFactory
 
 
     /**
-     * @return MessageHeaders
+     * @return MimeMessageHeaders
      */
     private function getDataFromFile()
     {

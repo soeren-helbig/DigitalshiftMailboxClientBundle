@@ -7,6 +7,8 @@ namespace Digitalshift\MailboxConnectionBundle\Tests;
  *
  * @author Soeren Helbig <Soeren.Helbig@digitalshift.de>
  * @copyright Digitalshift (c) 2014
+ *
+ * @method assertEquals
  */
 class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
